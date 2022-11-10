@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NoteStore</string>
+    <string name="action_1">test</string>
+    <string name="action_2">test</string>
+    <string name="supporting_text">test</string>
+    <string name="secondary_text">test</string>
+    <string name="title">test</string>
+</resources>
