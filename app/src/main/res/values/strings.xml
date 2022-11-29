@@ -5,4 +5,12 @@
     <string name="supporting_text">test</string>
     <string name="secondary_text">test</string>
     <string name="title">test</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Synths</string>
+    <string name="search">Search</string>
+    <string name="page_title">Notestore</string>
+    <string name="product_image_content_description">Product image</string>
+    <string name="SamplePrice">$15</string>
+    <string name="SampleProductName">PO-16</string>
 </resources>

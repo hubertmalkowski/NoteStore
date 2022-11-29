@@ -1,83 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
-
-    <Button
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:id="@+id/elevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Elevated button"
-        />
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
+    tools:context=".MainActivity"
+    android:background="?android:colorBackground"
+    >
+    <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/appBarLayout"
+            >
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/page_title" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!-- Scrollable content -->
+        <androidx.fragment.app.FragmentContainerView
+                android:layout_alignParentTop="true"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/fragment_container_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:itemRippleColor="?colorTertiary"
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            app:menu="@menu/bottom_bar_menu" />
 
-            <!-- Title, secondary and supporting text -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title"
-                android:textAppearance="?attr/textAppearanceTitleMedium"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/secondary_text"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/supporting_text"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary"
-                />
 
-        </LinearLayout>
-
-        <!-- Buttons -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/action_1"
-                style="?attr/materialButtonOutlinedStyle"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/action_2"
-                style="?attr/borderlessButtonStyle"
-                />
-        </LinearLayout>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
