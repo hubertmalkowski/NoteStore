@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 
+import com.example.notestore.CartView.CartView;
 import com.example.notestore.ProductsView.ProductsLayout;
 import com.example.notestore.Fragments.Search;
 import com.example.notestore.Storage.DBHelper;
@@ -63,14 +64,17 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_products:
                     fragmentManager.beginTransaction()
-                            .setReorderingAllowed(true)
                             .replace(R.id.fragment_container_view, ProductsLayout.class, null)
                             .commit();
                     return true;
                 case R.id.navigation_search:
                     fragmentManager.beginTransaction()
-                            .setReorderingAllowed(true)
                             .replace(R.id.fragment_container_view, Search.class, null)
+                            .commit();
+                    return true;
+                case R.id.navigation_cart:
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container_view, CartView.class, null)
                             .commit();
                     return true;
             }

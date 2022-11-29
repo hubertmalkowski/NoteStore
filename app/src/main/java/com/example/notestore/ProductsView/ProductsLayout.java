@@ -34,6 +34,7 @@ public class ProductsLayout extends Fragment {
 
     public static ProductsLayout newInstance(String param1, String param2) {
         return new ProductsLayout();
+
     }
 
 
@@ -46,9 +47,10 @@ public class ProductsLayout extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setAllowEnterTransitionOverlap(false);
 
-        this.setEnterTransition(new MaterialFadeThrough());
-
+        this.setAllowReturnTransitionOverlap(false);
+        this.setEnterTransition(new MaterialFadeThrough().addTarget(R.id.products_recycler_view));
         storageManager = new StorageManager(new DBHelper(getContext()));
         products = storageManager.getProducts();
     }

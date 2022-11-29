@@ -13,4 +13,5 @@
     <string name="product_image_content_description">Product image</string>
     <string name="SamplePrice">$15</string>
     <string name="SampleProductName">PO-16</string>
+    <string name="cart">Cart</string>
 </resources>
