@@ -45,9 +45,13 @@ public class ProductListItemAdapter extends RecyclerView.Adapter<ProductListItem
         holder.productNameView.setText(item.getName());
         holder.productPriceView.setText(String.valueOf(item.getPrice()));
 
-        holder.itemView.setOnContextClickListener(itemView -> {
-            Toast.makeText(context, item.getName(), Toast.LENGTH_SHORT).show();
-            return true;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), item.getName(), Toast.LENGTH_SHORT).show();
+
+
+            }
         });
     }
 

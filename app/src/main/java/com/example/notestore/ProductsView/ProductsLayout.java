@@ -78,6 +78,8 @@ public class ProductsLayout extends Fragment {
 
 
         recyclerView.setLayoutManager(gridLayoutManager);
+
+
     }
 
     @Override

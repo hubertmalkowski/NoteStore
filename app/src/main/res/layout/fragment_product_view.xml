@@ -5,30 +5,14 @@
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ProductPage.ProductView"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        android:transitionName="shared_element_container"
+    >
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
-        <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/productAppBarLayout"
-                android:layout_width="match_parent"
-                android:fitsSystemWindows="true"
-                app:liftOnScroll="true"
-                android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/topAppBarProduct"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:title="@string/app_name"
-                    app:menu="@menu/bottom_bar_menu"
-                    app:navigationIcon="@drawable/ic_round_arrow_back_24" />
-
-
-            <!--                    app:menu="@menu/top_app_bar"-->
-        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
                 android:id="@+id/product_layout"
@@ -102,6 +86,24 @@
             </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/productAppBarLayout"
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            app:liftOnScroll="true"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBarProduct"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/app_name"
+                app:menu="@menu/bottom_bar_menu"
+                />
+
+
+            <!--                    app:menu="@menu/top_app_bar"-->
+        </com.google.android.material.appbar.AppBarLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

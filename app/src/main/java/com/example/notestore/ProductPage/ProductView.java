@@ -14,9 +14,11 @@ import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.example.notestore.MainActivity;
+import com.example.notestore.ProductsView.ProductsLayout;
 import com.example.notestore.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.transition.MaterialContainerTransform;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +76,9 @@ public class ProductView extends Fragment {
         Log.i(LOG_TAG,appBar.toString());
         appBar.setVisibility(View.GONE);
         parentLayout.bottomNavigationView.setVisibility(View.GONE);
+        
+        setEnterTransition(new MaterialContainerTransform());
+
     }
 
     @Override
@@ -87,12 +92,23 @@ public class ProductView extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         productAppBar = view.findViewById(R.id.productAppBarLayout);
         topToolbar = view.findViewById(R.id.topAppBarProduct);
+        topToolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24);
+//        parentLayout.setSupportActionBar(topToolbar);
         productAppBar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 productAppBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 view.findViewById(R.id.product_layout).setPadding(0, productAppBar.getHeight(), 0, 0);
             }
+        });
+
+//        parentLayout.setSupportActionBar(topToolbar);
+
+        topToolbar.setNavigationOnClickListener(view1 -> {
+            Toast.makeText(getContext(), "Dupa", Toast.LENGTH_SHORT).show();
+            getParentFragmentManager().beginTransaction().replace(R.id.fragment_container_view, ProductsLayout.class, null)
+                    .setReorderingAllowed(true)
+                    .commit();
         });
 
         super.onViewCreated(view, savedInstanceState);

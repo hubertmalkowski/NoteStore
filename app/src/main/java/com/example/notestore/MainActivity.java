@@ -1,6 +1,8 @@
 package com.example.notestore;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.adapter.FragmentViewHolder;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         storageManager = new StorageManager(new DBHelper(getApplicationContext()));
 
         fragmentContainerView = findViewById(R.id.fragment_container_view);
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         appBarLayout = findViewById(R.id.appBarLayout);
 
         addPadding();
+//        addProducts();
 
 
 
@@ -95,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     void addProducts() {
         storageManager.addProduct("Product 1", 100.0, "Damn", null);
