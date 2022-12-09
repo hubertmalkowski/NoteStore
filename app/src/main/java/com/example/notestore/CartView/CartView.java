@@ -4,12 +4,17 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.notestore.MainActivity;
 import com.example.notestore.R;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.transition.MaterialFadeThrough;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +31,7 @@ public class CartView extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public CartView() {
         // Required empty public constructor
@@ -48,6 +54,7 @@ public class CartView extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    AppBarLayout appBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,14 +63,23 @@ public class CartView extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
         this.setAllowEnterTransitionOverlap(false);
         this.setEnterTransition(new MaterialFadeThrough());
+
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_cart_view, container, false);
+
     }
+
+
 }

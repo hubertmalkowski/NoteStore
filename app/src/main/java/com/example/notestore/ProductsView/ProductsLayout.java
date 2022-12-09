@@ -2,6 +2,8 @@ package com.example.notestore.ProductsView;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,16 +49,11 @@ public class ProductsLayout extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setAllowEnterTransitionOverlap(false);
-
-        this.setAllowReturnTransitionOverlap(false);
-        this.setEnterTransition(new MaterialFadeThrough().addTarget(R.id.products_recycler_view));
+//        this.setAllowEnterTransitionOverlap(false);
         storageManager = new StorageManager(new DBHelper(getContext()));
         products = storageManager.getProducts();
+
     }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,17 +64,30 @@ public class ProductsLayout extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+
+
+        Log.i(LOG_TAG, "Products: " + products.toString());
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView = requireView().findViewById(R.id.products_recycler_view);
+        recyclerView =view.findViewById(R.id.products_recycler_view);
         ProductListItemAdapter productListItemAdapter = new ProductListItemAdapter(products, getContext());
         Log.i(LOG_TAG, products.toString());
         recyclerView.setAdapter(productListItemAdapter);
 
 
         recyclerView.setLayoutManager(gridLayoutManager);
+    }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+//        this.setEnterTransition(new MaterialFadeThrough());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 }

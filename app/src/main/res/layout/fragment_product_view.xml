@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ProductPage.ProductView"
+        android:paddingHorizontal="16dp">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/productAppBarLayout"
+                android:layout_width="match_parent"
+                android:fitsSystemWindows="true"
+                app:liftOnScroll="true"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBarProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/app_name"
+                    app:menu="@menu/bottom_bar_menu"
+                    app:navigationIcon="@drawable/ic_round_arrow_back_24" />
+
+
+            <!--                    app:menu="@menu/top_app_bar"-->
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/product_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <LinearLayout
+                        android:id="@+id/image_gallery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <ImageView
+                            android:id="@+id/product_image"
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_launcher_background"
+                            />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                        android:id="@+id/product_price_name"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/image_gallery"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp">
+
+                    <TextView
+                            android:id="@+id/product_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PO-160"
+                            android:textAppearance="?textAppearanceDisplayLarge" />
+
+                    <TextView
+                            android:id="@+id/product_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="$14"
+                            android:textAppearance="?textAppearanceHeadlineLarge"
+                            android:layout_alignBottom="@id/product_name" />
+
+                </RelativeLayout>
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="12dp"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.Material3.CardView.Filled"
+                        android:layout_below="@id/product_price_name"
+                        >
+                    <LinearLayout
+
+                            android:padding="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="this is some really serious shit im talking to you"
+                                />
+                    </LinearLayout>
+
+
+
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+
+</FrameLayout>
