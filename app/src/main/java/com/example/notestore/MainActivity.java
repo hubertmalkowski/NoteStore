@@ -1,5 +1,6 @@
 package com.example.notestore;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,7 @@ import androidx.viewpager2.adapter.FragmentViewHolder;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
@@ -20,6 +22,7 @@ import com.example.notestore.Storage.DBHelper;
 import com.example.notestore.Storage.StorageManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,11 +55,21 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container_view, ProductView.class, null).commit();
+//        fragmentManager.beginTransaction().replace(R.id.fragment_container_view, ProductView.class, null).commit();
         appBarLayout = findViewById(R.id.appBarLayout);
 
         addPadding();
 //        addProducts();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                )
+                .replace(R.id.fragment_container_view, ProductsLayout.class, null)
+                .setReorderingAllowed(true)
+                .addToBackStack(ProductsLayout.TAG)
+                .commit();
+
 
 
 
@@ -70,26 +83,58 @@ public class MainActivity extends AppCompatActivity {
                             )
                             .replace(R.id.fragment_container_view, ProductsLayout.class, null)
                             .setReorderingAllowed(true)
+                            .addToBackStack(ProductsLayout.TAG)
                             .commit();
                     return true;
                 case R.id.navigation_search:
                     fragmentManager.beginTransaction()
                             .replace(R.id.fragment_container_view, Search.class, null)
                             .setReorderingAllowed(true)
+                            .addToBackStack(Search.TAG)
                             .commit();
                     return true;
                 case R.id.navigation_cart:
                     fragmentManager.beginTransaction()
+                            .setCustomAnimations(
+                                    R.anim.fade_in,
+                                    R.anim.fade_out
+                            )
                             .replace(R.id.fragment_container_view, CartView.class, null)
                             .setReorderingAllowed(true)
+                            .addToBackStack(CartView.TAG)
                             .commit();
                     return true;
             }
             return false;
         });
+        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
 
+            }
+        });
+
+        //Make bottom bar item change after back button pressed
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (fragmentManager.getBackStackEntryCount() > 0) {
+                    String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
+                    if (tag.equals(ProductsLayout.TAG)) {
+                        bottomNavigationView.setSelectedItemId(R.id.navigation_products);
+                    } else if (tag.equals(Search.TAG)) {
+                        bottomNavigationView.setSelectedItemId(R.id.navigation_search);
+                    } else if (tag.equals(CartView.TAG)) {
+                        bottomNavigationView.setSelectedItemId(R.id.navigation_cart);
+                    }
+                }
+            }
+        });
 
     }
+
+
+
     public void addPadding() {
         appBarLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -106,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         storageManager.addProduct("Product 1", 100.0, "Damn", null);
         storageManager.addProduct("Product 2", 200.0, "Damn", null);
         storageManager.addProduct("Product 3", 300.0, "Damn", null);
+        storageManager.addProduct("8 Cables", 16.0, "Cables", null);
     }
 
 }

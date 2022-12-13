@@ -1,4 +1,6 @@
-package com.example.notestore.Storage;
+package com.example.notestore.Storage.Cart;
+
+import com.example.notestore.Storage.Products.Product;
 
 public class Cart {
     private final Product product;

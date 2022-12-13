@@ -1,4 +1,4 @@
-package com.example.notestore.Storage;
+package com.example.notestore.Storage.Cart;
 
 import android.provider.BaseColumns;
 

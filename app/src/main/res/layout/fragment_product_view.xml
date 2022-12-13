@@ -4,9 +4,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:transitionName="cardToProduct"
         tools:context=".ProductPage.ProductView"
-        android:paddingHorizontal="16dp"
-        android:transitionName="shared_element_container"
+    android:id="@+id/product_page"
     >
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -15,6 +15,7 @@
 
 
         <androidx.core.widget.NestedScrollView
+                android:layout_margin="16dp"
                 android:id="@+id/product_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -27,12 +28,13 @@
                         android:id="@+id/image_gallery"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                             android:id="@+id/product_image"
-                            android:layout_width="300dp"
-                            android:layout_height="300dp"
+                            android:layout_width="250dp"
+                            android:layout_height="250dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_launcher_background"
+                            app:shapeAppearanceOverlay="@style/Circular"
                             />
 
                 </LinearLayout>
@@ -74,6 +76,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                         <TextView
+                                android:id="@+id/product_description"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="this is some really serious shit im talking to you"
@@ -104,8 +107,23 @@
 
             <!--                    app:menu="@menu/top_app_bar"-->
         </com.google.android.material.appbar.AppBarLayout>
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            style="@style/Widget.Material3.BottomAppBar"
+            app:navigationIcon="@drawable/ic_outline_bookmark_border_24"
+            />
 
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            style="?floatingActionButtonTertiaryStyle"
+            android:layout_width="wrap_content"
+            android:id="@+id/add_to_cart_button"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_outline_add_shopping_cart_24"
+            app:layout_anchor="@id/bottomAppBar"
+            android:contentDescription="TODO" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <!-- TODO: Update blank fragment layout -->
 

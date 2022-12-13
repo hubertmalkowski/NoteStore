@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/product_bottom_sheet"
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    android:orientation="horizontal">
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Material3.Chip.Suggestion"
+        app:ensureMinTouchTargetSize="true"
+        android:text="@string/nocables"
+        android:layout_marginHorizontal="5dp"
+        />
+    <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/chip2"
+        style="@style/Widget.Material3.Chip.Assist"
+        android:text="+8 cables"
+        app:ensureMinTouchTargetSize="true"
+        android:layout_marginHorizontal="5dp"
+        />
+    <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Material3.Chip.Assist"
+        android:id="@+id/chip3"
+        android:layout_marginHorizontal="5dp"
+        android:text="+16 cables"
+        app:ensureMinTouchTargetSize="true"
+        />
+
+
+
+
+</LinearLayout>

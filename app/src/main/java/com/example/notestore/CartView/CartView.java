@@ -2,19 +2,28 @@ package com.example.notestore.CartView;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.example.notestore.MainActivity;
 import com.example.notestore.R;
+import com.example.notestore.Storage.Cart.CartItem;
+import com.example.notestore.Storage.DBHelper;
+import com.example.notestore.Storage.StorageManager;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialFadeThrough;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +31,7 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class CartView extends Fragment {
+    public static final String TAG = "CartView";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,6 +65,12 @@ public class CartView extends Fragment {
         return fragment;
     }
     AppBarLayout appBar;
+    ArrayList<CartItem> cartItems;
+    LinearLayoutManager linearLayoutManager;
+    RecyclerView recyclerView;
+    ExtendedFloatingActionButton checkoutButton;
+    FloatingActionButton clearCart;
+    StorageManager storageManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,12 +80,110 @@ public class CartView extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        this.setAllowEnterTransitionOverlap(false);
+
+
+
+         storageManager = new StorageManager(new DBHelper(getContext()));
+        cartItems = storageManager.getCart();
+
+    }
+
+    private double calculateTotal(){
+        double total = 0;
+        for (CartItem cartItem : cartItems) {
+            total += cartItem.getQuantity() * cartItem.getProduct().getPrice();
+        }
+        return total;
+    }
+
+    TextView noItems;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        noItems = view.findViewById(R.id.noItems);
+
+
+
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView = view.findViewById(R.id.cart_recycler_view);
+
+
+        checkoutButton = view.findViewById(R.id.checkoutPrice);
+        String price = String.format("$%f", calculateTotal());
+        checkoutButton.setText(getResources().getText(R.string.checkout) + " " + price.substring(0,price.indexOf(".")));
+
+
+        this.setAllowEnterTransitionOverlap(true);
         this.setEnterTransition(new MaterialFadeThrough());
 
+        recyclerView.setLayoutManager(linearLayoutManager);
+        setADapterOfRecyclerView();
+
+        clearCart = view.findViewById(R.id.clearCart);
+
+        updateView();
+        clearCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialAlertDialogBuilder(getContext())
+                        .setTitle(getResources().getString(R.string.cartClear))
+                        .setMessage(getResources().getString(R.string.cartClearMessage))
+                        .setPositiveButton(getResources().getText(R.string.cartClearConfirm), (dialog, which) -> {
+                            clearCartItems();
+                        })
+                        .setNegativeButton(getResources().getText(R.string.cartClearCancel), (dialog, which) -> {
+
+                        })
+                        .show();
+
+            }
+        });
+    }
+    //refreshes cart
+    private void refreshCart(){
+        StorageManager storageManager = new StorageManager(new DBHelper(getContext()));
+        cartItems = storageManager.getCart();
+        setADapterOfRecyclerView();
+        updateView();
+    }
+    private void setADapterOfRecyclerView() {
+
+        recyclerView.setAdapter(new CartItemAdapter(cartItems, getContext(), v -> {
+            //get the quantity of the cart item with the given id
+            int quantity = cartItems.get(v).getQuantity();
+
+            QuantityBottomSheet quantityBottomSheet = new QuantityBottomSheet(quantity, i -> {
+                storageManager.updateQuantity(cartItems.get(v).getId(), i);
+                refreshCart();
+                return null;
+            });
+            quantityBottomSheet.show(getChildFragmentManager(), QuantityBottomSheet.TAG);
+            //Create test toast
+            return null;
+        }));
+    }
 
 
 
+    private void clearCartItems() {
+        StorageManager storageManager = new StorageManager(new DBHelper(getContext()));
+        storageManager.clearCart();
+        cartItems.clear();
+        recyclerView.getAdapter().notifyDataSetChanged();
+        updateView();
+    }
+    private void updateView() {
+        if (cartItems.size() == 0) {
+            noItems.setVisibility(View.VISIBLE);
+            checkoutButton.setVisibility(View.GONE);
+            clearCart.setVisibility(View.GONE);
+        } else {
+            noItems.setVisibility(View.GONE);
+            checkoutButton.setVisibility(View.VISIBLE);
+            clearCart.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

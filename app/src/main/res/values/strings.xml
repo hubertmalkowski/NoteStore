@@ -14,4 +14,12 @@
     <string name="SamplePrice">$15</string>
     <string name="SampleProductName">PO-16</string>
     <string name="cart">Cart</string>
+    <string name="nocables">No Cables</string>
+    <string name="checkout">Checkout</string>
+    <string name="cartClear">Clear Cart?</string>
+    <string name="cartClearMessage">CLICK CANCEL TO GET BITCHES!!!!!!!!!!!!!</string>
+    <string name="cartClearConfirm">Clear</string>
+    <string name="cartClearCancel">Cancel</string>
+    <string name="profile">Account</string>
+    <string name="quantity">Quantity</string>
 </resources>
