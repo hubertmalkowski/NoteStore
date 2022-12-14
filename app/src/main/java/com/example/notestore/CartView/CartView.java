@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.notestore.Checkout.Checkout;
 import com.example.notestore.R;
 import com.example.notestore.Storage.Cart.CartItem;
 import com.example.notestore.Storage.DBHelper;
@@ -122,6 +123,15 @@ public class CartView extends Fragment {
         setADapterOfRecyclerView();
 
         clearCart = view.findViewById(R.id.clearCart);
+
+        checkoutButton.setOnClickListener(v -> {
+            getParentFragmentManager().beginTransaction()
+                    .addSharedElement(v, "checkoutTransition")
+                    .replace(R.id.fragment_container_view, Checkout.class, null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         updateView();
         clearCart.setOnClickListener(new View.OnClickListener() {
