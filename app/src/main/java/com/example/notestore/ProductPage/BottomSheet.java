@@ -40,7 +40,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-         storageManager = new StorageManager(new DBHelper(getContext()));
+         storageManager = new StorageManager(new DBHelper(getContext()), getContext());
 
         return inflater.inflate(R.layout.product_page_bottom_sheet, container, false);
     }

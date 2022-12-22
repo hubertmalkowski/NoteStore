@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.notestore.R;
+import com.google.android.material.transition.MaterialContainerTransform;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +22,7 @@ public class Checkout extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static final String TAG = "Checkout";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -55,6 +57,7 @@ public class Checkout extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setSharedElementEnterTransition(new  MaterialContainerTransform());
     }
 
     @Override

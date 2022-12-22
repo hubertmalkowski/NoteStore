@@ -1,5 +1,6 @@
 package com.example.notestore.CartView;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,11 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.notestore.Account.AccountWrapper;
 import com.example.notestore.Checkout.Checkout;
+import com.example.notestore.Checkout.CheckoutBottomSheet;
 import com.example.notestore.R;
 import com.example.notestore.Storage.Cart.CartItem;
 import com.example.notestore.Storage.DBHelper;
 import com.example.notestore.Storage.StorageManager;
+import com.example.notestore.Storage.User.UserManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -25,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialFadeThrough;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,7 +89,7 @@ public class CartView extends Fragment {
 
 
 
-         storageManager = new StorageManager(new DBHelper(getContext()));
+         storageManager = new StorageManager(new DBHelper(getContext()), getContext());
         cartItems = storageManager.getCart();
 
     }
@@ -124,16 +129,34 @@ public class CartView extends Fragment {
 
         clearCart = view.findViewById(R.id.clearCart);
 
-        checkoutButton.setOnClickListener(v -> {
-            getParentFragmentManager().beginTransaction()
-                    .addSharedElement(v, "checkoutTransition")
-                    .replace(R.id.fragment_container_view, Checkout.class, null)
-                    .setReorderingAllowed(true)
-                    .addToBackStack(null)
-                    .commit();
-        });
+
 
         updateView();
+
+        checkoutButton.setOnClickListener(v -> {
+            UserManager userManager = new UserManager(requireContext());
+            if  (userManager.getCurrentUserId() != -1) {
+                CheckoutBottomSheet checkout = new CheckoutBottomSheet(l -> {
+
+                    clearCartItems();
+                    return null;
+
+                    }, calculateTotal());
+                checkout.show(getChildFragmentManager(), Checkout.TAG);
+            } else {
+                //Change fragment to AccountWrapper
+                getParentFragmentManager().beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.fade_in,
+                                R.anim.fade_out
+                        )
+                        .replace(R.id.fragment_container_view, AccountWrapper.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(AccountWrapper.TAG)
+                        .commit();
+            }
+        });
+
         clearCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,9 +174,15 @@ public class CartView extends Fragment {
             }
         });
     }
+
+
+
+
+
+
     //refreshes cart
     private void refreshCart(){
-        StorageManager storageManager = new StorageManager(new DBHelper(getContext()));
+        StorageManager storageManager = new StorageManager(new DBHelper(getContext()), getContext());
         cartItems = storageManager.getCart();
         setADapterOfRecyclerView();
         updateView();
@@ -178,7 +207,7 @@ public class CartView extends Fragment {
 
 
     private void clearCartItems() {
-        StorageManager storageManager = new StorageManager(new DBHelper(getContext()));
+        StorageManager storageManager = new StorageManager(new DBHelper(getContext()), getContext());
         storageManager.clearCart();
         cartItems.clear();
         recyclerView.getAdapter().notifyDataSetChanged();

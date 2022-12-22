@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:id="@+id/checkout_bottom_sheet"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_marginTop="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceLabelSmall"
+        android:text="@string/name_checkout"
+        />
+    <TextView
+        android:id="@+id/name_number_checkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceBodyLarge"
+        android:text="Hubert Małkowski"
+        />
+
+    <TextView
+        android:layout_marginTop="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceLabelSmall"
+        android:text="@string/phone_number"
+        />
+    <TextView
+        android:id="@+id/phone_number_checkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceBodyLarge"
+        android:text="801 123 456"
+        />
+
+    <TextView
+        android:layout_marginTop="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceLabelSmall"
+        android:text="@string/price"
+        />
+    <TextView
+        android:id="@+id/price_checkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceBodyLarge"
+        android:text="@string/SamplePrice"
+        />
+    <Button
+        android:id="@+id/checkoutConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkout"
+        style="?materialButtonStyle"
+        android:layout_marginTop="7dp"
+        android:layout_gravity="right"/>
+
+
+
+
+
+</LinearLayout>

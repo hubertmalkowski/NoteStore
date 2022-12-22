@@ -1,5 +1,6 @@
 package com.example.notestore.ProductPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.notestore.Storage.Products.Product;
 import com.example.notestore.Storage.StorageManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.MaterialContainerTransform;
@@ -69,6 +71,7 @@ public class ProductView extends Fragment {
     AppBarLayout productAppBar;
     MainActivity parentLayout;
     MaterialToolbar topToolbar;
+    BottomAppBar bottomBar;
     FragmentContainerView fragmentContainerView;
     Product product;
     StorageManager storageManager;
@@ -81,7 +84,7 @@ public class ProductView extends Fragment {
         if (getArguments() != null) {
             productIdParam = getArguments().getInt(ARG_PARAM1);
         }
-        storageManager = new StorageManager(new DBHelper(getContext()));
+        storageManager = new StorageManager(new DBHelper(getContext()), getContext());
         product = storageManager.getProduct(productIdParam);
         parentLayout = (MainActivity) getActivity();
         appBar = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
@@ -123,6 +126,7 @@ public class ProductView extends Fragment {
 
         productName = view.findViewById(R.id.product_name);
         productName.setText(product.getName());
+        bottomBar = view.findViewById(R.id.bottomAppBar);
 
         productPrice = view.findViewById(R.id.product_price);
         String price = String.format("$%f", product.getPrice());
@@ -141,10 +145,27 @@ public class ProductView extends Fragment {
 
         addToCartButtom = view.findViewById(R.id.add_to_cart_button);
 
+        bottomBar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()){
+                case R.id.share:
+                    Intent sendIntend = new Intent();
+                    sendIntend.setAction(Intent.ACTION_SEND);
+                    sendIntend.putExtra(Intent.EXTRA_TEXT,  "Look, I found this product, isn't it amazing? " + product.getName());
+                    sendIntend.setType("text/plain");
+                    Intent shareIntent = Intent.createChooser(sendIntend, null);
+                    startActivity(shareIntent);
+                    return true;
+                default:
+                    return false;
+
+            }
+        });
+
+
         addToCartButtom.setOnClickListener(view12 -> {
 //            storageManager.addToCart(product.getId());
 //            Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
-            BottomSheet bottomSheet = new BottomSheet(product.getId(), view.findViewById(R.id.bottomAppBar), v -> {
+            BottomSheet bottomSheet = new BottomSheet(product.getId(), bottomBar, v -> {
 
                 Snackbar.make(requireView(), "Added to cart", Snackbar.LENGTH_SHORT)
                         .setAnchorView(view.findViewById(R.id.bottomAppBar))
@@ -158,6 +179,8 @@ public class ProductView extends Fragment {
 
 
             bottomSheet.show(getParentFragmentManager(), BottomSheet.TAG);
+
+
 
         });
 

@@ -49,7 +49,7 @@ public class ProductsLayout extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        this.setAllowEnterTransitionOverlap(false);
-        storageManager = new StorageManager(new DBHelper(getContext()));
+        storageManager = new StorageManager(new DBHelper(getContext()), getContext());
         products = storageManager.getProducts();
 
     }

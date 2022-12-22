@@ -22,4 +22,19 @@
     <string name="cartClearCancel">Cancel</string>
     <string name="profile">Account</string>
     <string name="quantity">Quantity</string>
+    <string name="userAdress">user</string>
+    <string name="userId">userId</string>
+    <string name="user_not_logged_in">You\'re not logged in????!??</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Register</string>
+    <string name="user_not_logged_in_description">Register now and buy us much as you can end even more</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="phone_number">Phone number</string>
+    <string name="log_out">log out</string>
+    <string name="share">Share</string>
+    <string name="whishlist">Whishlist</string>
+    <string name="name_checkout">Name</string>
+    <string name="price">Price</string>
 </resources>

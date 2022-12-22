@@ -1,5 +1,7 @@
 package com.example.notestore.Storage.Products;
 
+import android.graphics.Bitmap;
+
 public class Product {
 
     private final int id;

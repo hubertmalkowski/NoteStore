@@ -7,6 +7,7 @@ public class CartItem {
     Product product;
     int quantity;
 
+
     public int getId() {
         return id;
     }

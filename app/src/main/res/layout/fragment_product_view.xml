@@ -101,7 +101,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/app_name"
-                app:menu="@menu/bottom_bar_menu"
                 />
 
 
@@ -111,9 +110,10 @@
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:menu="@menu/product_view_menu"
             android:layout_gravity="bottom"
             style="@style/Widget.Material3.BottomAppBar"
-            app:navigationIcon="@drawable/ic_outline_bookmark_border_24"
+
             />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

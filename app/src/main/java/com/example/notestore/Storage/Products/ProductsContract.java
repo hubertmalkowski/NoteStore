@@ -22,7 +22,7 @@ public final class ProductsContract {
                     ProductsEntry.COLUMN_NAME_NAME + " TEXT," +
                     ProductsEntry.COLUMN_NAME_PRICE + " REAL," +
                     ProductsEntry.COLUMN_NAME_DESCRIPTION + " TEXT," +
-                    ProductsEntry.COLUMN_NAME_IMAGE + " TEXT)";
+                    ProductsEntry.COLUMN_NAME_IMAGE + " BLOB)";
 
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + ProductsEntry.TABLE_NAME;
